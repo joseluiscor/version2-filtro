@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gestión de Clientes - Campus Car Washing Center</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    /* Estilos personalizados aquí */
+  </style>
+</head>
+<body>
+
+     <!-- ENCABEZADO -->
+  <div class="contenedor-header">
+    <header>
+      <nav class="nav" id="nav">
+        <div class="abrev">
+          <h2>Campus<span> Car Washing Center <i class="bi bi-controller"></i></span></h2>
+        </div>
+        <ul class="menu" id="nav">
+          <li><a href="#registro">Clientes</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#compra">Comprar</a></li>
+          <li><a href="#fidelizacion">Puntos</a></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+
+  <div id="registro" class="container">
+    <h1 style="padding: 20px;">Gestión de Clientes</h1>
+
+    <!-- Formulario de búsqueda -->
+    <form id="searchForm">
+        <div class="form-group">
+          <input type="text" class="form-control" id="searchInput" oninput="searchCustomers()" placeholder="Escriba para buscar...">
+        </div>
+    </form>
+
+    <!-- Tabla de clientes -->
+    <table id="customersTable" class="table">
+      <thead>
+        <tr>
+          <th>Número de Identificación</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Placa Auto</th>
+          <th>Tipo</th>
+          <th>Correo Electrónico</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="customersTableBody">
+        <!-- Filas de clientes serán generadas dinámicamente -->
+      </tbody>
+    </table>
+
+    <!-- Formulario para registrar/modificar clientes -->
+    <h2 style="padding: 20px;">Registrar/Modificar Cliente</h2>
+    <form id="customerForm">
+      <div class="form-group">
+        <label for="idInput">Número de Identificación:</label>
+        <input type="text" class="form-control" id="idInput" required>
+      </div>
+      <div class="form-group">
+        <label for="firstNameInput">Nombres:</label>
+        <input type="text" class="form-control" id="firstNameInput" required>
+      </div>
+      <div class="form-group">
+        <label for="lastNameInput">Apellidos:</label>
+        <input type="text" class="form-control" id="lastNameInput" required>
+      </div>
+      <div class="form-group">
+        <label for="carPlateInput">Placa Auto:</label>
+        <input type="text" class="form-control" id="carPlateInput" required>
+      </div>
+      <div class="form-group">
+        <label for="carTypeSelect">Tipo:</label>
+        <select class="form-control" id="carTypeSelect" required>
+          <option value="Automóvil">Automóvil</option>
+          <option value="Camioneta">Camioneta</option>
+          <option value="Autobús">Autobús</option>
+          <option value="Camión de Carga">Camión de Carga</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="emailInput">Correo Electrónico:</label>
+        <input type="email" class="form-control" id="emailInput" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneInput">Teléfono:</label>
+        <input type="tel" class="form-control" id="phoneInput" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" class="btn btn-secondary" id="cancelButton">Cancelar</button>
+    </form>
+  </div>
+
+  <div id="servicios">
+    <!-- Gestión de Servicios -->
+    <h2 style="padding: 0 0 20px 0;">Gestión de Servicios</h2>
+
+    <!-- Creación de Servicios -->
+    <h3 style="padding: 0 0 20px 0;">Crear Servicio</h3>
+    <form id="createServiceForm" style="width: 50%;">
+    <div class="form-group">
+        <label for="serviceName">Nombre del Servicio:</label>
+        <input type="text" class="form-control" id="serviceName" required>
+    </div>
+    <div class="form-group">
+        <label for="serviceValue">Valor del Servicio:</label>
+        <input type="number" class="form-control" id="serviceValue" required>
+    </div>
+    <div class="form-group">
+        <label for="serviceDescription">Descripción:</label>
+        <textarea class="form-control" id="serviceDescription" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="servicePoints">Puntos para Fidelización:</label>
+        <input type="number" class="form-control" id="servicePoints" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Servicio</button>
+    </form>
+
+    <!-- Listado de Servicios -->
+    <h3>Listado de Servicios</h3>
+    <table class="table">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Nombre del Servicio</th>
+            <th>Valor del Servicio</th>
+            <th>Descripción</th>
+            <th>Puntos para Fidelización</th>
+            <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="servicesTableBody">
+            <!-- Filas de servicios serán generadas dinámicamente -->
+        </tbody>
+    </table>
+  </div>
+
+  <!--Comprar Servicios -->
+  <section id="compra">
+        <h3 style="padding: 0 0 40px 0;">Comprar Servicios</h3>
+
+        <p style="text-transform: capitalize; font-weight: 600;">Clientes:</p>
+        <select id="selectOptions">
+            <option value="">Seleccionar cliente</option>
+        </select><br>
+
+        <p style="text-transform: capitalize; font-weight: 600;">Servicios:</p>
+        <select id="selectServices">
+            <option value="">Seleccionar servicio</option>
+        </select><br>
+
+        <button class="button-compra" onclick="compra()">Comprar</button>
+    
+    </section>
+
+
+    <!-- Sistema de fidelización -->
+    <section id="fidelizacion">
+        <h2 style="padding: 40px;">Sistema de Fidelización</h2>
+        <table id="loyaltyTable" class="table">
+            <thead>
+                <tr>
+                    <th>Número de Identificación</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Placa Auto</th>
+                    <th>Puntos</th>
+                </tr>
+            </thead>
+            <tbody id="dataFidelizacion">
+                <!-- Filas de clientes y puntos serán generadas dinámicamente -->
+            </tbody>
+        </table>
+    </section>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./script.js"></script>
+</body>
